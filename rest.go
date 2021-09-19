@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/frankrap/bitmex-api/swagger"
 	"io/ioutil"
 	"net/http"
 	"sort"
 	"strconv"
 	"time"
+
+	"github.com/frankrap/bitmex-api/swagger"
 )
 
 const (
@@ -69,6 +70,20 @@ func (b *BitMEX) GetWallet() (wallet swagger.Wallet, err error) {
 		"currency": "",
 	}
 	wallet, response, err = b.client.UserApi.UserGetWallet(b.ctx, params)
+	if err != nil {
+		return
+	}
+	b.onResponse(response)
+	return
+}
+
+func (b *BitMEX) GetWalletSummary() (wallet []swagger.Transaction, err error) {
+	var response *http.Response
+
+	params := map[string]interface{}{
+		"currency": "",
+	}
+	wallet, response, err = b.client.UserApi.UserGetWalletSummary(b.ctx, params)
 	if err != nil {
 		return
 	}
