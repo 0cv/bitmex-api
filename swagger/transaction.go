@@ -23,6 +23,8 @@ type Transaction struct {
 
 	TransactType string `json:"transactType,omitempty"`
 
+	WalletBalance string `json:"walletBalance,omitempty"`
+
 	Amount float32 `json:"amount,omitempty"`
 
 	Fee float32 `json:"fee,omitempty"`
